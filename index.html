@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>摸鱼导航</title>
+    <!-- 预加载猫咪头像 -->
+    <link rel="preload" href="IMG_xiaoyu.0.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -42,13 +44,18 @@
             border-radius: 50%;
             border: 3px solid #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            object-fit: cover; /* 确保图片适应圆形容器 */
+            object-fit: cover;
             animation: zoomIn 0.8s ease-out;
-            transition: transform 0.3s ease; /* 平滑过渡 */
+            transition: transform 0.3s ease, opacity 0.5s ease; /* 添加淡入过渡 */
+            opacity: 0; /* 初始透明 */
+        }
+
+        .header img.loaded {
+            opacity: 1; /* 加载完成时淡入 */
         }
 
         .header img:hover {
-            transform: scale(1.05); /* 悬停时微缩放 */
+            transform: scale(1.05);
         }
 
         @keyframes zoomIn {
@@ -129,7 +136,12 @@
             height: 120px;
             object-fit: cover;
             border-radius: 8px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.5s ease; /* 添加淡入过渡 */
+            opacity: 0; /* 初始透明 */
+        }
+
+        .card img.loaded {
+            opacity: 1; /* 加载完成时淡入 */
         }
 
         .card:hover img {
@@ -305,7 +317,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="IMG_xiaoyu.0.png" alt="" loading="lazy">
+        <img src="IMG_xiaoyu.0.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
     </div>
 
     <div class="section">
@@ -313,7 +325,7 @@
         <div class="card-container">
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.1.png" alt="坦克大战" loading="lazy">
+                    <img src="IMG_xiaoyu.1.png" alt="坦克大战" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>坦克大战</h3>
                         <p>经典的坦克大战游戏</p>
@@ -322,7 +334,7 @@
             </div>
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.2.png" alt="" loading="lazy">
+                    <img src="IMG_xiaoyu.2.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>魂斗罗</h3>
                         <p>经典射击游戏，热血与挑战并存</p>
@@ -331,7 +343,7 @@
             </div>
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.3.png" alt="" loading="lazy">
+                    <img src="IMG_xiaoyu.3.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>双截龙</h3>
                         <p>格斗类游戏</p>
@@ -346,7 +358,7 @@
         <div class="card-container">
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.4.png" alt="" loading="lazy">
+                    <img src="IMG_xiaoyu.4.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>v2ex</h3>
                         <p>创作者工作的热门社区</p>
@@ -355,7 +367,7 @@
             </div>
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.5.png" alt="" loading="lazy">
+                    <img src="IMG_xiaoyu.5.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>电鸭社区</h3>
                         <p>只工作不上班的社区</p>
@@ -364,7 +376,7 @@
             </div>
             <div class="card">
                 <a href="javascript:void(0)">
-                    <img src="IMG_xiaoyu.6.png" alt="" loading="lazy">
+                    <img src="IMG_xiaoyu.6.png" alt="" loading="lazy" onload="this.classList.add('loaded')">
                     <div class="text-area">
                         <h3>scboy</h3>
                         <p>星际的社区</p>
