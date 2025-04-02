@@ -42,7 +42,13 @@
             border-radius: 50%;
             border: 3px solid #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            object-fit: cover; /* 确保图片适应圆形容器 */
             animation: zoomIn 0.8s ease-out;
+            transition: transform 0.3s ease; /* 平滑过渡 */
+        }
+
+        .header img:hover {
+            transform: scale(1.05); /* 悬停时微缩放 */
         }
 
         @keyframes zoomIn {
