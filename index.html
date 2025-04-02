@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摸鱼导航</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #f5e9c5 100%);
+            color: #5c4033;
+            padding: 20px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .section {
+            margin: 20px 0;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .card:active {
+            transform: scale(0.95);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card .text-area {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .card:hover .text-area {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin: 0 0 5px;
+            font-weight: 500;
+        }
+
+        .card p {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #5c4033;
+            display: block;
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card a:hover {
+            text-decoration: none;
+        }
+
+        .card a:active {
+            background-color: transparent;
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .footer-section div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-section h2 {
+            font-size: 24px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .section h2 {
+                font-size: 20px;
+            }
+
+            .card {
+                width: 150px;
+                padding: 10px;
+            }
+
+            .card img {
+                height: 90px;
+            }
+
+            .card .text-area {
+                padding: 8px;
+            }
+
+            .card h3 {
+                font-size: 14px;
+            }
+
+            .card p {
+                font-size: 10px;
+            }
+
+            .footer-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section div {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .footer-section h2 {
+                font-size: 20px;
+            }
+
+            .footer-section p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .section h2 {
+                font-size: 18px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 300px;
+                padding: 10px;
+            }
+
+            .card img {
+                height: 100px;
+            }
+
+            .card .text-area {
+                padding: 8px;
+            }
+
+            .card h3 {
+                font-size: 14px;
+            }
+
+            .card p {
+                font-size: 10px;
+            }
+
+            .footer-section h2 {
+                font-size: 18px;
+            }
+
+            .footer-section p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/cat-avatar.jpg" alt="猫咪头像" loading="lazy">
+    </div>
+
+    <div class="section">
+        <h2>休闲游戏</h2>
+        <div class="card-container">
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/tank-battle.jpg" alt="坦克大战" loading="lazy">
+                    <div class="text-area">
+                        <h3>坦克大战</h3>
+                        <p>经典的坦克大战游戏</p>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/contra.jpg" alt="魂斗罗" loading="lazy">
+                    <div class="text-area">
+                        <h3>魂斗罗</h3>
+                        <p>经典射击游戏，热血与挑战并存</p>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/double-dragon.jpg" alt="双截龙" loading="lazy">
+                    <div class="text-area">
+                        <h3>双截龙</h3>
+                        <p>格斗类游戏</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>优质客户</h2>
+        <div class="card-container">
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/v2ex.jpg" alt="v2ex" loading="lazy">
+                    <div class="text-area">
+                        <h3>v2ex</h3>
+                        <p>创作者工作的热门社区</p>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/electric-duck.jpg" alt="电鸭社区" loading="lazy">
+                    <div class="text-area">
+                        <h3>电鸭社区</h3>
+                        <p>只工作不上班的社区</p>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a href="javascript:void(0)">
+                    <img src="images/scboy.jpg" alt="scboy" loading="lazy">
+                    <div class="text-area">
+                        <h3>scboy</h3>
+                        <p>星际的社区</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <div>
+            <h2>上站</h2>
+            <p><strong>LINU</strong> 真诚、友善、团队、专业，支持你我引以为豪之社区</p>
+        </div>
+        <div>
+            <h2>豆瓣</h2>
+            <p>提供图书、电影、音乐推荐等，以及城市文化生活</p>
+        </div>
+    </div>
+</body>
+</html>
